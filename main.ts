@@ -39,5 +39,11 @@ const back = readFileSync(outFile, "utf8");
 if (back !== LINE) {
   fail("read-back mismatch: file does not match the line byte for byte");
 }
+if (Buffer.byteLength(back, "utf8") !== Buffer.byteLength(LINE, "utf8")) {
+  fail("read-back mismatch: file byte length differs from the line");
+}
+if (back.endsWith("\n")) {
+  fail("entry must not end with a trailing newline");
+}
 
 console.log(`wrote ${chars} characters to ${outFile}`);
